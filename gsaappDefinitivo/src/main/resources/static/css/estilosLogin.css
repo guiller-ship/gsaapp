@@ -59,7 +59,7 @@ footer {
 }
 
 .infoApp {
-    margin-top: 1.25rem;
+   border-left: solid;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -92,4 +92,15 @@ footer {
         width: calc(100% - 20px);
         margin: 0 auto;
     }
+    
+    .footer-icons {
+    	justify-content: center;
+    	margin-bottom: 2.8rem;
+	}
+    
+    .infoApp {
+   		border-left: none;
+   		border-top: solid;
+   		padding-top: 2.8rem;
+	}
 }
