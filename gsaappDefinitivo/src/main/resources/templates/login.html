@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'GSAapp - ' + ${titulo}">GSAapp - Iniciar sesión</title>
+    <!-- CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="./css/estilosLogin.css">
+  </head>
+  <body>
+    <!-- CONTENEDOR DONDE ALMACENA EL CARRUSEL Y EL LOGIN -->
+    <nav class="navbar navbar-light justify-content-between top-bar">
+      <img src="./img/logoGSAapp.png" alt="LogoGSAapp">
+    </nav>
+    
+    <div class="container">
+      <hr>
+        <div class="col-md-5">
+          <div class="login-form p-4">
+            <h3 class="text-center mb-4">Iniciar sesión</h3>
+
+            <hr>
+            
+            <div th:if=${param.error}>
+				<div class="alert alert-danger">Email o contraseña incorrectos.</div>
+			</div>
+
+			<div th:if=${param.logout}>
+				<div class="alert alert-info">Cerraste sesión con éxito.</div>
+			</div>
+
+            <form th:action="@{/login}" method="post">
+              <div class="form-group">
+                 <label for="username">Email:</label>
+                 <div class="grid-container">
+                 	<input class="form-control mr-sm-2 grid-item" type="text" id="username" name="username" size="40">
+                 </div>
+              </div>
+              
+              <br>
+
+              <div class="form-group">
+                <label for="password">Constraseña:</label>
+                <div class="grid-container">
+                	<input class="form-control mr-sm-2 grid-item" type="password" id="password" name="password" size="40">
+                </div>
+              </div>
+
+              <br>
+
+              <div class="form-group">
+                <input type="submit" value="Acceder">
+                <a th:href="@{/registro}"><input type="button" value="Registrar usuario"></a>
+              </div>
+              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            </form>
+          </div>
+        </div>
+    </div>
+    <!-- FIN DEL CONTENEDOR -->
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

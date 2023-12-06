@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'GSAapp - Detalles de ' + ${usuario.username}"></title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/estilosVerAsunto.css">
+    <!-- CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   	
+   	<style>
+   	
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Color de fondo */
+}
+
+.container-fluid {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff; /* Color de fondo del contenido */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Barra superior */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, #FFBB33, #6e5016);
+    color: white;
+    padding: 10px;
+}
+
+.top-bar img {
+    width: 6rem;
+}
+
+.dropdown-toggle {
+    background-color: #6e5016;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-in-out;
+    margin-right: 3rem;
+}
+
+.dropdown-toggle:hover {
+    background-color: #e4c07c;
+}
+
+h2 {
+    color: #333;
+    margin-top: 20px; /* Espaciado superior para el título principal */
+}
+
+/* Detalles del Usuario */
+p {
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Detalles de los Permisos */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Botón de Volver a Inicio */
+button {
+    background-color: #3d3d3d;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px; /* Espaciado superior para el botón */
+}
+
+button:hover {
+    background-color: #696969;
+}
+    </style>
+    
+</head>
+<body>
+    <div class="container-fluid">
+    	
+    	<nav class="navbar navbar-light justify-content-between top-bar">
+	      <img src="./img/logoGSAapp.png" alt="LogoGSAapp">
+	    </nav>
+    
+        <h2 th:text="'Detalles del Usuario: ' + ${usuario.username}"></h2>
+        <p th:text="'Nombre: ' + ${usuario.nombre}"></p>
+        <p th:text="'Apellidos ' + ${usuario.apellidos}"></p>
+        <p th:text="'Email ' + ${usuario.email}"></p>
+
+        <h2>Detalles de los Permisos</h2>
+        <ul th:each="permiso : ${permisos}">
+                <li><p>Fecha de inicio: <span th:text="${permiso.fechaInicio}"></span></p></li>
+                <li><p>Fecha de fin: <span th:text="${permiso.fechaFin}"></span></p></li>
+                <li><p>Tipo de permiso: <span th:text="${permiso.tipoPermiso}"></span></p></li>
+        </ul>
+        
+ 		<a th:href="@{/inicio}"><button class="">Volver a inicio</button></a>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+</body>
+</html>

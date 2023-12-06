@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'GSAapp - ' + ${titulo}"></title>
+     <!-- CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Estilos personalizados y scripts -->
+    <link rel="stylesheet" href="./css/estilosUsuario.css" sec:authorize="hasRole('USER')">
+    <script src="js/scriptUser.js" sec:authorize="hasRole('USER')"></script>
+    <link rel="stylesheet" href="./css/estilosAdmin.css" sec:authorize="hasRole('ADMIN')">
+    <link rel="stylesheet" href="./css/estilosPaginacion.css">
+    <script src="js/scriptAdmin.js" sec:authorize="hasRole('ADMIN')"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-light justify-content-between top-bar">
+      <img src="./img/logoGSAapp.png" alt="LogoGSAapp">
+      <div class="dropdown">
+	    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+	    	th:text="${usuario.username}">
+	    </button>
+	    <div class="dropdown-menu">
+	      <a class="dropdown-item" th:href="@{/logout}" th:text="'Cerrar sesión'" sec:authorize="isAuthenticated()"></a>
+	    </div>
+	  </div>
+    </nav>
+    
+    <h1 sec:authorize="hasRole(null)">No tienes acceso a las funciones, por favor ingresa un usuario</h1>
+    
+    <!-- --------------------------
+		PARTE DE LA VISTA DE USUARIO 
+		 -------------------------- -->
+    
+    <div class="container-fluid py-4 contenedorPrincipal" sec:authorize="hasRole('USER')">
+    
+	    <div class="espacioUsuario py-4">
+	    	<h4>Bienvenido/a <span sec:authentication="principal.username"></span></h4>
+		    <div class="card">
+			    <img th:src="@{'./img/' + ${usuario.avatar}}" class="card-img-top" alt="fotoPerfil">
+			    <div class="card-body">
+			        <h5 class="card-title">Información del Usuario</h5>
+			        <ul class="list-group list-group-flush">
+			            <li class="list-group-item"><strong>Nombre:</strong> <span th:text="${usuario.nombre}"></span></li>
+			            <li class="list-group-item"><strong>Nombre de usuario:</strong> <span th:text="${usuario.username}"></span></li>
+			            <li class="list-group-item"><strong>Apellidos:</strong> <span th:text="${usuario.apellidos}"></span></li>
+			            <li class="list-group-item"><strong>Correo:</strong> <span th:text="${usuario.email}"></span></li>
+			            <li class="list-group-item"><strong>Cargo:</strong> <span th:text="${usuario.cargo}"></span></li>
+			        </ul>
+			        <a th:href="@{/calendario-permisos}"><button class="button">Acceder calendario, pedir permiso</button></a>
+			    </div>
+			</div>
+	    </div>
+	    
+	    <div class="card text-center">
+			<div class="card-header">Historial</div>
+			<div class="card-body">
+				<h2>Detalles de los Permisos</h2>
+				<hr>
+		            <div th:each="permiso : ${permisos}">
+		                <p th:text="'Fecha de inicio: ' + ${permiso.fechaInicio}"></p>
+		                <p th:text="'Fecha de fin: ' + ${permiso.fechaFin}"></p>
+		                <p th:text="'Tipo de permiso: ' + ${permiso.tipoPermiso}"></p>
+		                <hr>
+		            </div>
+		        
+		       <!-- Mostrar el mensaje si los permisos han sido denegados -->
+		        <div th:if="${usuario.isPermisosDenegados()}">
+		            <p>Solicitud denegada</p>
+		        </div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<!-- --------------------------------
+		PARTE DE LA VISTA DE ADMINISTRADOR 
+		 -------------------------------- -->
+	    
+	<div class="espacioAdmin container-fluid" sec:authorize="hasRole('ADMIN')">
+	
+		<div class="datosUsuarios">
+			<div class="card">
+			    <img th:src="@{'./img/' + ${usuario.avatar}}" class="card-img-top" alt="fotoPerfil">
+			    <div class="card-body">
+			        <h5 class="card-title">Información del Usuario</h5>
+			        <ul class="list-group list-group-flush">
+			            <li class="list-group-item"><strong>Nombre:</strong> <span th:text="${usuario.nombre}"></span></li>
+			            <li class="list-group-item"><strong>Nombre de usuario:</strong> <span th:text="${usuario.username}"></span></li>
+			            <li class="list-group-item"><strong>Apellidos:</strong> <span th:text="${usuario.apellidos}"></span></li>
+			            <li class="list-group-item"><strong>Correo:</strong> <span th:text="${usuario.email}"></span></li>
+			            <li class="list-group-item"><strong>Cargo:</strong> <span th:text="${usuario.cargo}"></span></li>
+			        </ul>
+			    </div>
+			</div>
+			
+			<!-- Tabla de usuarios -->
+			<div class="table-responsive-md">
+				<table class="table table-bordered">
+				    <thead>
+				        <tr>
+				            <th>Foto</th>
+				            <th>Nombre de usuario</th>
+				            <th>Email</th>
+				            <th>Cargo</th>
+				            <th>Acciones</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <tr th:each="usuario : ${usuariosUser}">
+				            <td>
+				                <img th:src="@{'./img/' + ${usuario.avatar}}" class="rounded-circle" alt="fotoPerfil">
+				            </td>
+				            <td th:text="${usuario.username}"></td>
+				            <td th:text="${usuario.email}"></td>
+				            <td th:text="${usuario.cargo}"></td>
+				            <td>
+				                <!-- Enlace al nuevo detalle del usuario -->
+				                <a th:href="@{'/inicio/verAsunto/' + ${usuario.id}}"><button class="btn btn-primary">Ver asunto</button></a>
+				                <!-- Formulario para Aceptar -->
+				                <form method="post" style="display: inline;">
+				                    <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
+				                    <input type="hidden" name="accion" value="ACEPTAR" />
+				                    <button class="btn btn-success" type="submit">Aceptar</button>
+				                </form>
+				                <!-- Formulario para Denegar -->
+				                <form th:action="@{'/inicio/denegarPermisos'}" method="post" style="display: inline;">
+				                    <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
+				                    <input type="hidden" name="accion" value="DENEGAR" />
+				                    <button class="btn btn-danger" type="submit" onclick="mostrarAlertDenegar()">Denegar</button>
+				                </form>
+				            </td>
+				        </tr>
+				    </tbody>
+				</table>
+				<div th:replace="fragments/pagination :: pagination" class="paginador"></div>
+			</div>
+		</div>
+				    		<!-- Paginación -->
+		
+
+		<div class="form-group">
+	        <span>Pulsa <a th:href="@{/registro}">aquí</a> para registrar un nuevo usuario</span>
+	    </div>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

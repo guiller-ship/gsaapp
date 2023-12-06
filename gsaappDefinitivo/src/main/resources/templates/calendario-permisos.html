@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<!-- CSS -->
+	<link rel="stylesheet" href="./css/estilosCalendario.css">
+    <!-- Agrega las referencias necesarias para jQuery, FullCalendar y Thymeleaf (asegúrate de tener estas bibliotecas incluidas) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+    
+    <!-- JS -->
+    <script src="js/scriptCalendario.js"></script>
+
+	<meta charset="UTF-8">
+	<title th:text="'GSAapp - ' + ${titulo}">GSAapp - Calendario</title>
+	
+</head>
+<body>
+	<nav class="navbar navbar-light justify-content-between top-bar">
+      <img src="./img/logoGSAapp.png" alt="LogoGSAapp">
+      <a th:href="@{/inicio}"><button class="botonVolverInicio">Volver a inicio</button></a>
+    </nav>
+
+    <div>
+        <!-- Calendario -->
+        <div id="calendario"></div>
+
+        <!-- Formulario para seleccionar permisos -->
+        <form th:action="@{/guardar-permiso}" th:object="${permiso}" method="post">
+            <!-- Campos del formulario -->
+
+            <!-- Campos ocultos para fechaInicio y fechaFin -->
+            <input type="hidden" th:field="*{fechaInicio}" id="fechaInicio" th:format="'yyyy-MM-dd'" />
+            <input type="hidden" th:field="*{fechaFin}" id="fechaFin" th:format="'yyyy-MM-dd'" />
+            <!-- Agregar el campo para el ID del usuario -->
+			<input type="hidden" th:field="*{usuario.id}" id="userId" />       
+
+            <!-- Mensajes de error -->
+            <div th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}">Fecha de inicio requerida</div>
+            <div th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}">Fecha de fin requerida</div>
+            <div th:if="${#fields.hasErrors('tipoPermiso')}" th:errors="*{tipoPermiso}">Tipo de permiso requerido</div>
+
+            <label for="tipoPermiso">Selecciona el tipo de permiso:</label>
+            <select id="tipoPermiso" name="tipoPermiso" th:field="*{tipoPermiso}">
+                <option value="vacaciones">Vacaciones</option>
+                <option value="enfermedad">Enfermedad</option>
+                <option value="otro">Otro Permiso</option>
+            </select>
+
+            <button type="submit">Solicitar permiso</button>
+        </form>
+    </div>
+</body>
+</html>
