@@ -1,0 +1,39 @@
+/* Estilos generales */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Barra superior */
+.top-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: linear-gradient(to right, #FFBB33, #6e5016);
+	color: white;
+	padding: 10px;
+}
+
+.top-bar img {
+	width: 6rem;
+}
+/* Barra superior */
+
+button {
+	background-color: #3d3d3d;
+	border: none;
+	color: #fff;
+	border-radius: 5px;
+	padding: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+	background-color: #696969;
+}

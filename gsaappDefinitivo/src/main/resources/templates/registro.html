@@ -1,131 +1,107 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>Registro de usuarios</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
+<head>
+    <meta charset="utf-8">
+    <title>Registro de usuarios</title>
+   	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="./css/estilosRegistro.css">
 </head>
+
 <body>
 
+    <nav class="navbar navbar-light justify-content-between top-bar">
+      <img src="./img/logoGSAapp.png" alt="LogoGSAapp">
+      <a th:href="@{/inicio}"><button class="botonVolverInicio">Volver a inicio</button></a>
+    </nav>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">Registro y
-					inicio de sesión</a>
-			</div>
-		</div>
-	</nav>
+    <br>
+    <br>
 
-	<br>
-	<br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div th:if=${param.exito}>
+                    <div class="alert alert-info">Se registró con éxito</div>
+                </div>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div th:if=${param.exito}>
-					<div class="alert alert-info">Se ha registrado exitosamente a
-						la aplicación</div>
-				</div>
+                <h1 class="text-center">Registrar un nuevo usuario</h1>
+                
+                <hr>
+                
+                <form th:action="@{/registro}" method="post" th:object="${usuario}">
+                    <div class="form-group">
+                        <label class="control-label" for="username">Nombre de usuario: </label>
+                        <input id="username" type="text" class="form-control" th:field="*{username}" required
+                            autofocus="autofocus" placeholder="Ingresa un número de usuario">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="nombre">Nombre: </label>
+                        <input id="nombre" type="text" class="form-control" th:field="*{nombre}" required
+                            autofocus="autofocus" placeholder="Ingresa un nombre">
+                    </div>
 
-				<h1>Regístrar un nuevo usuario</h1>
-				<form th:action="@{/registro}" method="post" th:object="${usuario}">
-					<div class="form-group">
-						<label class="control-label" for="username">Nombre de usuario: </label> <input
-							id="username" type="text" class="form-control" th:field="*{username}"
-							required autofocus="autofocus">
-					</div>
-					<div class="form-group">
-						<label class="control-label" for="nombre">Nombre: </label> <input
-							id="nombre" type="text" class="form-control" th:field="*{nombre}"
-							required autofocus="autofocus">
-					</div>
+                    <div class="form-group">
+                        <label class="control-label" for="apellidos">Apellidos: </label>
+                        <input id="apellidos" type="text" class="form-control" th:field="*{apellidos}" required
+                            autofocus="autofocus" placeholder="Ingresa apellidos">
+                    </div>
 
-					<div class="form-group">
-						<label class="control-label" for="apellidos">Apellidos: </label> <input
-							id="apellidos" type="text" class="form-control" th:field="*{apellidos}"
-							required autofocus="autofocus">
-					</div>
+                    <div class="form-group">
+                        <label class="control-label" for="email">Email: </label>
+                        <input id="email" type="email" class="form-control" th:field="*{email}" required
+                            autofocus="autofocus" placeholder="Ingresa un email/correo">
+                    </div>
 
-					<div class="form-group">
-						<label class="control-label" for="email">Email: </label> <input
-							id="email" type="email" class="form-control" th:field="*{email}"
-							required autofocus="autofocus">
-					</div>
+                    <div class="form-group">
+                        <label class="control-label" for="password">Contraseña: </label>
+                        <input type="password" id="password" class="form-control" th:field="*{password}" required
+                            autofocus="autofocus" placeholder="Ingresa una contraseña">
+                    </div>
 
-					<div class="form-group">
-						<label class="control-label" for="password">Password: </label> <input
-							type="password" id="password" class="form-control" th:field="*{password}"
-							required autofocus="autofocus">
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label" for="cargo">Cargo: </label> <input
-							type="text" id="cargo" class="form-control" th:field="*{cargo}"
-							required autofocus="autofocus">
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label" for="antiguedad">Antigüedad: </label> <input
-							type="date" id="antiguedad" class="form-control" th:field="*{antiguedad}"
-							required autofocus="autofocus">
-					</div>
-					
-					<div class="form-group">
-						<label for="rol">Selecciona el tipo de usuario:</label>
-            			<select id="rol" name="rol" th:field="*{rol}">
-                			<option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                			<option value="ROLE_USER">ROLE_USER</option>
-           	 			</select>
-					</div>
+                    <div class="form-group">
+                        <label class="control-label" for="cargo">Cargo: </label>
+                        <input type="text" id="cargo" class="form-control" th:field="*{cargo}" required
+                            autofocus="autofocus" placeholder="Ingresa un cargo">
+                    </div>
 
-					<div class="form-group">
-						<button type="submit" class="btn btn-success">Registrar</button>
-						<span>Si estas registrado <a th:href="@{/inicio}">inicia sesión aqui</a></span>
-					</div>
-					
-				</form>
+                    <div class="form-group">
+                        <label class="control-label" for="antiguedad">Antigüedad: </label>
+                        <input type="date" id="antiguedad" class="form-control" th:field="*{antiguedad}" required
+                            autofocus="autofocus">
+                    </div>
 
-			</div>
-		</div>
-	</div>
+                    <div class="form-group">
+                        <label for="rol">Selecciona el tipo de usuario:</label>
+                        <select id="rol" name="rol" class="form-control" th:field="*{rol}" required>
+                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                            <option value="ROLE_USER">ROLE_USER</option>
+                        </select>
+                    </div>
 
+                    <div class="form-group">
+                        <button type="submit">Registrar</button>
+                    </div>
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
