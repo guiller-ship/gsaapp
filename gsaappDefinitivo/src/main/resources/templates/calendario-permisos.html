@@ -23,7 +23,7 @@
       <a th:href="@{/inicio}"><button class="botonVolverInicio">Volver a inicio</button></a>
     </nav>
 
-    <div>
+    <div sec:authorize="hasRole('USER')">
         <!-- Calendario -->
         <div id="calendario"></div>
 
@@ -52,5 +52,7 @@
             <button type="submit">Solicitar permiso</button>
         </form>
     </div>
+    
+    <h1>Solo tienen acceso al calendario los las cuentas de nivel USUARIO.</h1>
 </body>
 </html>
