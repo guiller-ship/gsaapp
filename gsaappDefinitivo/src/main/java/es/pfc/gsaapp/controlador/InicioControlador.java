@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.pfc.gsaapp.modelo.Permiso;
 import es.pfc.gsaapp.modelo.Usuario;
-import es.pfc.gsaapp.modelo.tipos.EstadoPermiso;
 import es.pfc.gsaapp.servicio.UsuarioServicio;
 import es.pfc.gsaapp.util.paginator.PageRender;
 
@@ -71,8 +70,6 @@ public class InicioControlador {
         Optional<Usuario> optionalUsuario = usuarioServicio.findById(usuarioId);
 
         if (optionalUsuario.isPresent()) {
-            Usuario usuario = optionalUsuario.get();
-
             usuarioServicio.denegarPermisos(usuarioId);
         }
 
@@ -84,7 +81,6 @@ public class InicioControlador {
         Optional<Usuario> optionalUsuario = usuarioServicio.findById(usuarioId);
 
         if (optionalUsuario.isPresent()) {
-            Usuario usuario = optionalUsuario.get();
             // Realizar la acción correspondiente (aceptar o denegar)
             if ("ACEPTAR".equals(accion)) {
                 usuarioServicio.aceptarPermisos(usuarioId);
