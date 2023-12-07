@@ -57,8 +57,13 @@ $(document).ready(function () {
         },
         // Función que se ejecuta al renderizar la vista del calendario
         viewRender: function (view, element) {
-            // Agrega clases de Bootstrap a los botones de navegación
-            $('.fc-prev-button, .fc-next-button, .fc-today-button').addClass('btn btn-primary');
+            // Agrega clases de Bootstrap a los botones de navegación y estilos adicionales
+                    $('.fc-prevYear-button, .fc-prev-button, .fc-next-button, .fc-nextYear-button, .fc-today-button')
+                        .addClass('btn btn-primary')
+                        .css({
+                            'margin': '1rem', // Ajusta los valores de padding según tus necesidades
+                            'font-size': '1rem' // Ajusta el tamaño de fuente según tus necesidades
+                        });
 
             // Obtiene la fecha actual
             var today = moment();
@@ -76,12 +81,10 @@ $(document).ready(function () {
         buttonText: {
             today: 'HOY',
             month: 'mes',
-            week: 'semana',
-            day: 'día',
-            prev: 'anterior',
-            next: 'siguiente',
-            prevYear: 'año anterior',
-            nextYear: 'próximo año'
+            prev: '<<',
+            next: '>>',
+            prevYear: 'Año anterior',
+            nextYear: 'Próximo año'
         },
         // Configuración adicional para el calendario
         firstDay: 1,

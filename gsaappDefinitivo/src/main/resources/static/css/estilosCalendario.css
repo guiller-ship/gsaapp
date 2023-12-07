@@ -18,7 +18,7 @@ body {
 }
 
 .top-bar img {
-	width: 6rem;
+	width: 8rem;
 }
 /* Barra superior */
 
@@ -70,4 +70,19 @@ button {
 
 button:hover {
 	background-color: #696969;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 428px) {
+    #calendario {
+        max-width: 100%;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    form {
+        max-width: 100%;
+        margin: 10px;
+        padding: 10px;
+    }
 }

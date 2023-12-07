@@ -28,6 +28,10 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+div {
+	margin: 3rem;
+}
+
 /* Barra superior */
 .top-bar {
     display: flex;
@@ -99,6 +103,13 @@ button:hover {
     
 </head>
 <body>
+
+	<div sec:authorize="hasRole('USER')">
+		<h1>Acceso solo a ADMINISTRADORES</h1>
+    
+    	<a th:href="@{/inicio}"><button class="botonVolverInicio">Volver a inicio</button></a>
+	</div>
+	
     <div class="container-fluid" sec:authorize="hasRole('ADMIN')">
     	
     	<nav class="navbar navbar-light justify-content-between top-bar">
@@ -119,10 +130,6 @@ button:hover {
         
  		<a th:href="@{/inicio}"><button class="">Volver a inicio</button></a>
     </div>
-    
-    <h1>Acceso solo a administradores</h1>
-    
-    <a th:href="@{/inicio}"><button class="botonVolverInicio">Volver a inicio</button></a>
     
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

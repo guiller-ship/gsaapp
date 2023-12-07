@@ -2,19 +2,25 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 	<!-- CSS -->
 	<link rel="stylesheet" href="./css/estilosCalendario.css">
+
     <!-- Agrega las referencias necesarias para jQuery, FullCalendar y Thymeleaf (asegúrate de tener estas bibliotecas incluidas) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+    <!-- Agrega la biblioteca Modernizr -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    
     
     <!-- JS -->
     <script src="js/scriptCalendario.js"></script>
 
 	<meta charset="UTF-8">
-	<title th:text="'GSAapp - ' + ${titulo}">GSAapp - Calendario</title>
+	<title>GSAapp - Calendario</title>
 	
 </head>
 <body>
@@ -22,10 +28,12 @@
       <img src="./img/logoGSAapp.png" alt="LogoGSAapp">
       <a th:href="@{/inicio}"><button class="botonVolverInicio">Volver a inicio</button></a>
     </nav>
+    
+    <h1 sec:authorize="hasRole('ADMIN')">Solo tienen acceso al calendario los las cuentas de nivel USUARIO.</h1>
 
     <div sec:authorize="hasRole('USER')">
         <!-- Calendario -->
-        <div id="calendario"></div>
+        <div id="calendario" class="container-fluid"></div>
 
         <!-- Formulario para seleccionar permisos -->
         <form th:action="@{/guardar-permiso}" th:object="${permiso}" method="post">
@@ -53,6 +61,5 @@
         </form>
     </div>
     
-    <h1>Solo tienen acceso al calendario los las cuentas de nivel USUARIO.</h1>
 </body>
 </html>

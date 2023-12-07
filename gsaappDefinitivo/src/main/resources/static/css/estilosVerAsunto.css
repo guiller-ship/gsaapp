@@ -1,51 +1,87 @@
+/* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f8f9fa; /* Color de fondo */
 }
 
-.container {
+.container-fluid {
     max-width: 800px;
-    margin: 50px auto;
-    background-color: #fff;
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 5px;
+    background-color: #ffffff; /* Color de fondo del contenido */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+div {
+	margin: 3rem;
+}
+
+/* Barra superior */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, #FFBB33, #6e5016);
+    color: white;
+    padding: 10px;
+}
+
+.top-bar img {
+    width: 6rem;
+}
+
+.dropdown-toggle {
+    background-color: #6e5016;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-in-out;
+    margin-right: 3rem;
+}
+
+.dropdown-toggle:hover {
+    background-color: #e4c07c;
 }
 
 h2 {
     color: #333;
+    margin-top: 20px; /* Espaciado superior para el título principal */
 }
 
+/* Detalles del Usuario */
 p {
     margin: 10px 0;
     color: #555;
 }
 
+/* Detalles de los Permisos */
 ul {
     list-style: none;
     padding: 0;
 }
 
 li {
-    border-bottom: 1px solid #ddd;
     padding: 15px 0;
+    border-bottom: 1px solid #ddd;
 }
 
-a {
-    text-decoration: none;
-}
-
+/* Botón de Volver a Inicio */
 button {
-    background-color: #007bff;
+    background-color: #3d3d3d;
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px; /* Espaciado superior para el botón */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #696969;
 }

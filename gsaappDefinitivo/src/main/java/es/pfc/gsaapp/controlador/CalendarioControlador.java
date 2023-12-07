@@ -12,7 +12,7 @@ public class CalendarioControlador {
     	
     	modelo.addAttribute("titulo", "Calendario");
     	
-        return "calendario";
+        return "calendario-permisos";
     }
 
 }
