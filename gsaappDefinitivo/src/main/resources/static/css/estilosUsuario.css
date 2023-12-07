@@ -18,7 +18,7 @@ body {
 }
 
 .top-bar img {
-	width: 6rem;
+	width: 8rem;
 }
 
 .dropdown-toggle {
@@ -40,61 +40,55 @@ body {
       
 .contenedorPrincipal {
 	display: grid; /* establece que el elemento sea una cuadrícula */
-	grid-template-columns: repeat(2, 20rem); /* establece la cantidad y el ancho de las columnas */
-	grid-gap: 10px; /* establece el espacio entre las celdas de la cuadrícula */
+	grid-template-columns: 30% 60%;
+  	grid-template-rows: auto;
+  	grid-gap: 2rem;
 	align-items: center; /* alinea verticalmente los elementos en el centro de la celda */
-	justify-content: center;
 }
-
-      /* Contenido principal */
-      /*.datos {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: calc(100vh - 60px);
-      }*/
 
 .card-img-top {
-	width: 10rem;
+	width: 50%;
 	border-radius: 5rem;
 	margin-top: 1rem;
-	margin-left: 2rem;
+	margin-left: 4.2rem;
 }
       
-      .buttons {
-        display: grid; /* establece que el elemento sea una cuadrícula */
-        grid-template-columns: repeat(2, 1fr); /* establece la cantidad y el ancho de las columnas */
-        grid-gap: 10px; /* establece el espacio entre las celdas de la cuadrícula */
-        align-items: center; /* alinea verticalmente los elementos en el centro de la celda */
-        justify-content: center;
-      }
-  
-      .buttons > label {
-        grid-column: 1 / 2; /* establece que el elemento ocupe de la columna 1 a la 2 (es decir, la primera columna) */
-      }
-      
-      button {
-        grid-column: 2 / 3; /* establece que el elemento ocupe de la columna 2 a la 3 (es decir, la segunda columna) */
-        background-color: #d69c32;
-        border: none;
-        color: #fff;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: bold;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.2s ease-in-out;
-      }
+button {
+	margin-top: 1rem;
+	background-color: #d69c32;
+	border: none;
+	color: #fff;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: bold;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.2s ease-in-out;
+}
 
-      button:hover {
-        background-color: #e4c07c;
-      }
+button:hover {
+	background-color: #e4c07c;
+}
 
-      @media only screen and (max-width: 810px) {
+@media only screen and (max-width: 810px) {
           
-      }
+}
 
-      @media only screen and (max-width: 480px) {
-
-        
-        
-    }
+@media only screen and (max-width: 480px) {
+	.contenedorPrincipal {
+		display: grid; /* establece que el elemento sea una cuadrícula */
+		grid-template-columns: auto;
+		padding-bottom: 1rem;
+	}
+	
+	.cardUsuario {
+		width: 100%;
+		align-items: center;
+	}
+	
+	.card-img-top {
+		width: 50%;
+		border-radius: 5rem;
+		margin-top: 1rem;
+		margin-left: 0;
+	}
+}

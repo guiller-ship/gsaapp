@@ -8,7 +8,9 @@ body {
 }
 
 .datosUsuarios {
-  display: flex;
+	  display: grid;
+	  grid-template-columns: auto auto;
+	  grid-template-rows: auto;
 }
 
 /* Barra superior */
@@ -22,32 +24,44 @@ body {
 }
 
 .top-bar img {
-	width: 6rem;
+	width: 8rem;
+}
+
+.dropdown-toggle {
+	background-color: #6e5016;
+	border: none;
+	color: #fff;
+	border-radius: 5px;
+	padding: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.2s ease-in-out;
+	margin-right: 3rem;
+}
+      
+.dropdown-toggle:hover {
+	background-color: #e4c07c;
 }
 /* Barra superior */
 
 /* Estilo para la información del usuario */
 .card {
-    width: 300px; /* Puedes ajustar el ancho según tus preferencias */
-    margin: 20px; /* Espaciado exterior */
+    width: 90%; /* Puedes ajustar el ancho según tus preferencias */
+  	margin: 1rem;
+  	height: 65%;
+  	align-items: center;
 }
 
 .card-img-top {
-    width: 100%;
+	width: 50%;
+	border-radius: 5rem;
+	margin-top: 1rem;
     height: auto;
 }
 
 .card-title {
     text-align: center;
-}
-
-.list-group-item {
-    border: none;
-}
-
-/* Estilo para el enlace de registro */
-.form-group {
-    margin-bottom: 20px;
 }
 
 /* Estilo para la tabla de usuarios */
@@ -64,59 +78,55 @@ body {
 
 /* Estilo para las fotos de usuarios de la tabla */
 
-.card-img-top {
-	width: 10rem;
-	border-radius: 5rem;
-	margin-top: 1rem;
-	margin-left: 4.2rem;
-}
-
-img {
+.table-responsive-md img {
 	width: 3rem;
 	height: 3rem;
 }
 
 /* Estilo para los botones de acciones */
 .btn {
-    margin-right: 5px;
+ 	margin: 0.2rem;
 }
 
-@media only screen and (max-width: 1132px) {
+@media only screen and (max-width: 810px) {
 	.datosUsuarios {
-  		flex-direction: column;
+  		display: grid;
+	  	grid-template-columns: auto;
+	  	grid-template-rows: auto auto;
 	}
 	
 	.card {
-	    flex-direction: row;
-	    border:hidden;
+		display: grid;
+	  	grid-template-rows: auto;
+	    border: hidden;
 	}
 	
-	.card img {
-	    width: 20rem;
+	.card-img-top {
+		width: 30%;
+		margin-left: 16rem;
 	}
 	
 	table { 
-  width: 100%; 
-  border-collapse: collapse; 
+  		width: 100%; 
+  		border-collapse: collapse; 
+	}
 }
-/* Zebra striping */
-tr:nth-of-type(odd) { 
-  background: #eee; 
-}
-th { 
-  background: #333; 
-  color: white; 
-  font-weight: bold; 
-}
-td, th { 
-  padding: 6px; 
-  border: 1px solid #ccc; 
-  text-align: left; 
-}
+
+@media only screen and (max-width: 428px) {
+	 .thEmail, .thCargo, .tdEmail, .tdCargo {
+		display: none;
+	}
+	
+	.card-img-top {
+		width: 30%;
+		margin-left: 8rem;
+	}
 }
 
 @media only screen and (max-width: 375px) {
-	table {
-		flex-direction: column;
+	
+	.card-img-top {
+		width: 30%;
+		margin-left: 7rem;
 	}
 }
