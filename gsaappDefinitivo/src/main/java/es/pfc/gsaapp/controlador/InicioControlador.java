@@ -73,14 +73,7 @@ public class InicioControlador {
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
 
-            // Verifica si los permisos ya fueron aceptados
-            if (usuario.getPermisos().stream().anyMatch(permiso -> permiso.getEstado() == EstadoPermiso.ACEPTADO)) {
-                // Muestra un alert en la vista indicando que no se pueden denegar permisos ya aceptados
-                modelo.addAttribute("alertMessage", "No se pueden denegar permisos ya aceptados.");
-            } else {
-                // Realiza la acción correspondiente (denegar)
-                usuarioServicio.denegarPermisos(usuarioId);
-            }
+            usuarioServicio.denegarPermisos(usuarioId);
         }
 
         return "redirect:/inicio";

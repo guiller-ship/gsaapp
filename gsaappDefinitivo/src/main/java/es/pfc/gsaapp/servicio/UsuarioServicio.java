@@ -25,7 +25,7 @@ public interface UsuarioServicio extends UserDetailsService {
 	
 	public Usuario obtenerDetallesUsuarioPorId(Long id);
 
-	public boolean denegarPermisos(Long usuarioId);
+	public void denegarPermisos(Long usuarioId);
 
 	public void aceptarPermisos(Long usuarioId);
 }

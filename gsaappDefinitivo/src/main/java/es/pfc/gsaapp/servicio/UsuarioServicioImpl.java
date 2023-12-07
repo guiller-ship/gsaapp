@@ -126,7 +126,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 
 	@Override
-	public boolean denegarPermisos(Long usuarioId) {
+	public void denegarPermisos(Long usuarioId) {
 	    Usuario usuario = usuarioRepositorio.findById(usuarioId)
 	            .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado con id: " + usuarioId));
 
@@ -137,13 +137,13 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	        Permiso permiso = iterator.next();
 	        if (permiso.getEstado() == EstadoPermiso.PENDIENTE) {
 	            iterator.remove();
-	            permisoRepositorio.delete(permiso);
+	            permisoRepositorio.delete(permiso); // Elimina el permiso de la base de datos
 	        }
 	    }
 
 	    // Guarda el usuario para aplicar los cambios
 	    usuarioRepositorio.save(usuario);
-
-	    return true;
 	}
+
+
 }
