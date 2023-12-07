@@ -8,7 +8,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./css/estilosVerAsunto.css">
     <!-- CSS de Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+    	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    	crossorigin="anonymous">
    	
    	<style>
    	
@@ -123,9 +125,24 @@ button:hover {
 
         <h2>Detalles de los Permisos</h2>
         <ul th:each="permiso : ${permisos}">
-                <li><p>Fecha de inicio: <span th:text="${permiso.fechaInicio}"></span></p></li>
-                <li><p>Fecha de fin: <span th:text="${permiso.fechaFin}"></span></p></li>
-                <li><p>Tipo de permiso: <span th:text="${permiso.tipoPermiso}"></span></p></li>
+           <li><p th:text="'ESTADO: ' + ${permiso.estado}"></p></li>
+           <li><p>Fecha de inicio: <span th:text="${permiso.fechaInicio}"></span></p></li>
+           <li><p>Fecha de fin: <span th:text="${permiso.fechaFin}"></span></p></li>
+           <li><p>Tipo de permiso: <span th:text="${permiso.tipoPermiso}"></span></p></li>
+           <li>
+			  <!-- Formulario para Aceptar -->
+	          <form th:action="@{'/inicio/aceptarPermisos'}" method="post" style="display: inline;">
+	             <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
+	             <input type="hidden" name="accion" value="ACEPTAR" />
+	             <button class="btn btn-success" type="submit" onclick="mostrarAlertAceptar()">Aceptar</button>
+	          </form>
+	          <!-- Formulario para Denegar -->
+	          <form th:action="@{'/inicio/denegarPermisos'}" method="post" style="display: inline;">
+	              <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
+	              <input type="hidden" name="accion" value="DENEGAR" />
+	              <button class="btn btn-danger" type="submit" onclick="mostrarAlertDenegar()">Denegar</button>
+	          </form>
+	       </li>
         </ul>
         
  		<a th:href="@{/inicio}"><button class="">Volver a inicio</button></a>

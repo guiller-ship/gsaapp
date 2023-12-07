@@ -25,7 +25,6 @@
     <script src="js/scriptUser.js" sec:authorize="hasRole('USER')"></script>
     <link rel="stylesheet" href="./css/estilosAdmin.css" sec:authorize="hasRole('ADMIN')">
     <link rel="stylesheet" href="./css/estilosPaginacion.css">
-    <script src="js/scriptAdmin.js" sec:authorize="hasRole('ADMIN')"></script>
   </head>
   <body>
     <nav class="navbar navbar-light justify-content-between top-bar">
@@ -39,8 +38,6 @@
 	    </div>
 	  </div>
     </nav>
-    
-    <h1 sec:authorize="hasRole(null)">No tienes acceso a las funciones, por favor ingresa un usuario</h1>
       
     <div class="container-fluid" sec:authorize="hasRole('USER')">
     
@@ -76,6 +73,7 @@
 			                <p th:text="'Fecha de inicio: ' + ${permiso.fechaInicio}"></p>
 			                <p th:text="'Fecha de fin: ' + ${permiso.fechaFin}"></p>
 			                <p th:text="'Tipo de permiso: ' + ${permiso.tipoPermiso}"></p>
+			                <p th:text="'ESTADO: ' + ${permiso.estado}"></p>
 			                <hr>
 			            </div>
 			        
@@ -138,18 +136,6 @@
 				            <td>
 				                <!-- Enlace al nuevo detalle del usuario -->
 				                <a th:href="@{'/inicio/verAsunto/' + ${usuario.id}}"><button class="btn btn-primary">Ver asunto</button></a>
-				                <!-- Formulario para Aceptar -->
-				                <form method="post" style="display: inline;">
-				                    <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
-				                    <input type="hidden" name="accion" value="ACEPTAR" />
-				                    <button class="btn btn-success" type="submit">Aceptar</button>
-				                </form>
-				                <!-- Formulario para Denegar -->
-				                <form th:action="@{'/inicio/denegarPermisos'}" method="post" style="display: inline;">
-				                    <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
-				                    <input type="hidden" name="accion" value="DENEGAR" />
-				                    <button class="btn btn-danger" type="submit" onclick="mostrarAlertDenegar()">Denegar</button>
-				                </form>
 				            </td>
 				        </tr>
 				    </tbody>

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import es.pfc.gsaapp.modelo.tipos.EstadoPermiso;
 
 @Entity
 @Table(name = "permisos")
@@ -40,6 +44,10 @@ public class Permiso {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
+	
+	@Enumerated(EnumType.STRING)
+    @Column(nullable = false) // Asegura que el estado no sea nulo en la base de datos
+    private EstadoPermiso estado = EstadoPermiso.PENDIENTE;
 
     // Constructores, getters y setters
 
@@ -48,16 +56,18 @@ public class Permiso {
     }
 
     public Permiso(Long id, LocalDate fechaInicio, LocalDate fechaFin, String tipoPermiso) {
-    	this.id = id;
+        this.id = id;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.tipoPermiso = tipoPermiso;
+        this.estado = EstadoPermiso.PENDIENTE; // Estado por defecto al crear un nuevo permiso
     }
-    
+
     public Permiso(LocalDate fechaInicio, LocalDate fechaFin, String tipoPermiso) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.tipoPermiso = tipoPermiso;
+        this.estado = EstadoPermiso.PENDIENTE; // Estado por defecto al crear un nuevo permiso
     }
     
 	public Long getId() {
@@ -99,4 +109,12 @@ public class Permiso {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public EstadoPermiso getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPermiso estado) {
+        this.estado = estado;
+    }
 }

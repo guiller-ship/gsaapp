@@ -2,6 +2,7 @@ package es.pfc.gsaapp.servicio;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
@@ -22,6 +23,7 @@ import es.pfc.gsaapp.controlador.dto.UsuarioDTO;
 import es.pfc.gsaapp.modelo.Permiso;
 import es.pfc.gsaapp.modelo.Rol;
 import es.pfc.gsaapp.modelo.Usuario;
+import es.pfc.gsaapp.modelo.tipos.EstadoPermiso;
 import es.pfc.gsaapp.repositorio.PermisoRepositorio;
 import es.pfc.gsaapp.repositorio.UsuarioPaginadorRepositorio;
 import es.pfc.gsaapp.repositorio.UsuarioRepositorio;
@@ -103,19 +105,43 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	}
 	
 	@Override
-    public void denegarPermisos(Long usuarioId) {
-        Usuario usuario = usuarioRepositorio.findById(usuarioId)
-                .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado con id: " + usuarioId));
+	public void aceptarPermisos(Long usuarioId) {
+	    Usuario usuario = usuarioRepositorio.findById(usuarioId)
+	            .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado con id: " + usuarioId));
 
-     // Obtén y borra cada permiso asociado al usuario
-        Set<Permiso> permisos = usuario.getPermisos();
-        usuario.setPermisos(null);
+	    // Aquí puedes realizar acciones adicionales antes de aceptar los permisos, si es necesario
+	    // ...
 
-        for (Permiso permiso : permisos) {
-            permisoRepositorio.delete(permiso);
-        }
+	    // Acepta los permisos (actualiza el estado)
+	    Set<Permiso> permisos = usuario.getPermisos();
+	    for (Permiso permiso : permisos) {
+	        permiso.setEstado(EstadoPermiso.ACEPTADO);
+	    }
 
-        // Guarda el usuario para aplicar los cambios
-        usuarioRepositorio.save(usuario);
+	    // Guarda el usuario para aplicar los cambios
+	    usuarioRepositorio.save(usuario);
 	}
+
+	@Override
+	public boolean denegarPermisos(Long usuarioId) {
+	    Usuario usuario = usuarioRepositorio.findById(usuarioId)
+	            .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado con id: " + usuarioId));
+
+	    // Elimina los permisos en estado PENDIENTE
+	    Set<Permiso> permisos = usuario.getPermisos();
+	    Iterator<Permiso> iterator = permisos.iterator();
+	    while (iterator.hasNext()) {
+	        Permiso permiso = iterator.next();
+	        if (permiso.getEstado() == EstadoPermiso.PENDIENTE) {
+	            iterator.remove();
+	            permisoRepositorio.delete(permiso);
+	        }
+	    }
+
+	    // Guarda el usuario para aplicar los cambios
+	    usuarioRepositorio.save(usuario);
+
+	    return true;
+	}
+
 }

@@ -2,10 +2,6 @@ package es.pfc.gsaapp.controlador;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,24 +18,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.pfc.gsaapp.modelo.Permiso;
 import es.pfc.gsaapp.modelo.Usuario;
+import es.pfc.gsaapp.modelo.tipos.EstadoPermiso;
 import es.pfc.gsaapp.servicio.UsuarioServicio;
 import es.pfc.gsaapp.util.paginator.PageRender;
 
 @Controller
 public class InicioControlador {
 	
-	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	
-	// Utilizamos una variable atómica para representar el estado de permisosDenegados
-    private final AtomicBoolean permisosDenegados = new AtomicBoolean(false);
-
     @Autowired
     private UsuarioServicio usuarioServicio;  // Inyección de dependencia del servicio de usuario
 
     @GetMapping(value = {"/", "/inicio"})
     public String verPaginaDeInicio(Model modelo, Authentication autenticacion,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "7") int size) {
+            @RequestParam(name = "size", defaultValue = "3") int size) {
         String email = autenticacion.getName();
         Usuario usuario = usuarioServicio.findByEmail(email);
 
@@ -75,24 +67,34 @@ public class InicioControlador {
     }
 
     @PostMapping("/inicio/denegarPermisos")
-    public String denegarPermisos(@RequestParam Long usuarioId, @RequestParam String accion, Model modelo) {
+    public String denegarPermisos(@RequestParam Long usuarioId, Model modelo) {
+        Optional<Usuario> optionalUsuario = usuarioServicio.findById(usuarioId);
+
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+
+            // Verifica si los permisos ya fueron aceptados
+            if (usuario.getPermisos().stream().anyMatch(permiso -> permiso.getEstado() == EstadoPermiso.ACEPTADO)) {
+                // Muestra un alert en la vista indicando que no se pueden denegar permisos ya aceptados
+                modelo.addAttribute("alertMessage", "No se pueden denegar permisos ya aceptados.");
+            } else {
+                // Realiza la acción correspondiente (denegar)
+                usuarioServicio.denegarPermisos(usuarioId);
+            }
+        }
+
+        return "redirect:/inicio";
+    }
+
+    @PostMapping("/inicio/aceptarPermisos")
+    public String aceptarPermisos(@RequestParam Long usuarioId, @RequestParam String accion, Model modelo) {
         Optional<Usuario> optionalUsuario = usuarioServicio.findById(usuarioId);
 
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
             // Realizar la acción correspondiente (aceptar o denegar)
-            if ("DENEGAR".equals(accion)) {
-                usuario.setPermisosDenegados(true);
-                usuarioServicio.denegarPermisos(usuarioId);
-
-                // Restablecer permisosDenegados después de cierto tiempo (ejemplo: 5 segundos)
-                scheduler.schedule(() -> {
-                    usuario.setPermisosDenegados(false);
-                    permisosDenegados.set(false); // Actualiza la variable atómica
-
-                    // Actualiza el modelo dentro del hilo de la tarea programada
-                    modelo.addAttribute("permisosDenegados", false);
-                }, 5, TimeUnit.SECONDS);
+            if ("ACEPTAR".equals(accion)) {
+                usuarioServicio.aceptarPermisos(usuarioId);
             }
         }
 
