@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import es.pfc.gsaapp.modelo.tipos.EstadoPermiso;
+
 @Entity
 @Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "username"}))
 public class Usuario {
@@ -150,13 +152,9 @@ public class Usuario {
 	public void setPermisos(Set<Permiso> permisos) {
 		this.permisos = permisos;
 	}
-
-	public boolean isPermisosDenegados() {
-		return permisosDenegados;
-	}
-
-	public void setPermisosDenegados(boolean permisosDenegados) {
-		this.permisosDenegados = permisosDenegados;
+	
+	public boolean hasPermisoPendiente() {
+	    return this.getPermisos().stream().anyMatch(permiso -> permiso.getEstado() == EstadoPermiso.PENDIENTE);
 	}
 
 	public Usuario(Long id, String username, String nombre, String apellidos, String email, String password, String cargo, 

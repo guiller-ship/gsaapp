@@ -23,11 +23,16 @@ body {
 }
 
 .container-fluid {
-    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffff; /* Color de fondo del contenido */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.infoPermiso {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	grid-template-rows: auto;
 }
 
 div {
@@ -118,33 +123,38 @@ button:hover {
 	      <img src="./img/logoGSAapp.png" alt="LogoGSAapp">
 	    </nav>
     
-        <h2 th:text="'Detalles del Usuario: ' + ${usuario.username}"></h2>
-        <p th:text="'Nombre: ' + ${usuario.nombre}"></p>
-        <p th:text="'Apellidos ' + ${usuario.apellidos}"></p>
-        <p th:text="'Email ' + ${usuario.email}"></p>
-
-        <h2>Detalles de los Permisos</h2>
-        <ul th:each="permiso : ${permisos}">
-           <li><p th:text="'ESTADO: ' + ${permiso.estado}"></p></li>
-           <li><p>Fecha de inicio: <span th:text="${permiso.fechaInicio}"></span></p></li>
-           <li><p>Fecha de fin: <span th:text="${permiso.fechaFin}"></span></p></li>
-           <li><p>Tipo de permiso: <span th:text="${permiso.tipoPermiso}"></span></p></li>
-           <li>
-			  <!-- Formulario para Aceptar -->
-	          <form th:action="@{'/inicio/aceptarPermisos'}" method="post" style="display: inline;">
-	             <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
-	             <input type="hidden" name="accion" value="ACEPTAR" />
-	             <button class="btn btn-success" type="submit" onclick="mostrarAlertAceptar()">Aceptar</button>
-	          </form>
-	          <!-- Formulario para Denegar -->
-	          <form th:action="@{'/inicio/denegarPermisos'}" method="post" style="display: inline;">
-	              <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
-	              <input type="hidden" name="accion" value="DENEGAR" />
-	              <button class="btn btn-danger" type="submit" onclick="mostrarAlertDenegar()">Denegar</button>
-	          </form>
-	       </li>
-        </ul>
-        
+    	<div class="infoUsuarioPermiso">
+    		<div class="infoUsuario">
+    			<h2 th:text="'Detalles del Usuario: ' + ${usuario.username}"></h2>
+	        	<p th:text="'Nombre: ' + ${usuario.nombre}"></p>
+	        	<p th:text="'Apellidos ' + ${usuario.apellidos}"></p>
+	        	<p th:text="'Email ' + ${usuario.email}"></p>
+    		</div>
+    		
+    		<h2>Detalles de los Permisos</h2>
+    		<div class="infoPermiso">
+		        <ul th:each="permiso : ${permisos}">
+		           <li><p th:text="'ESTADO: ' + ${permiso.estado}"></p></li>
+		           <li><p>Fecha de inicio: <span th:text="${permiso.fechaInicio}"></span></p></li>
+		           <li><p>Fecha de fin: <span th:text="${permiso.fechaFin}"></span></p></li>
+		           <li><p>Tipo de permiso: <span th:text="${permiso.tipoPermiso}"></span></p></li>
+		           <li>
+					  <!-- Formulario para Aceptar -->
+			          <form th:action="@{'/inicio/aceptarPermisos'}" method="post" style="display: inline;">
+			             <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
+			             <input type="hidden" name="accion" value="ACEPTAR" />
+			             <button class="btn btn-success" type="submit" onclick="mostrarAlertAceptar()">Aceptar</button>
+			          </form>
+			          <!-- Formulario para Denegar -->
+			          <form th:action="@{'/inicio/denegarPermisos'}" method="post" style="display: inline;">
+			              <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
+			              <input type="hidden" name="accion" value="DENEGAR" />
+			              <button class="btn btn-danger" type="submit" onclick="mostrarAlertDenegar()">Denegar</button>
+			          </form>
+			       </li>
+		        </ul>
+    		</div>
+    	</div>
  		<a th:href="@{/inicio}"><button class="">Volver a inicio</button></a>
     </div>
     

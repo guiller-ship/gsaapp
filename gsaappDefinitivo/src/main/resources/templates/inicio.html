@@ -59,27 +59,40 @@
 				            <li class="list-group-item"><strong>Correo:</strong> <span th:text="${usuario.email}"></span></li>
 				            <li class="list-group-item"><strong>Cargo:</strong> <span th:text="${usuario.cargo}"></span></li>
 				        </ul>
-				        <a th:href="@{/calendario-permisos}"><button class="button">Acceder calendario, pedir permiso</button></a>
+				        <!-- Botón para acceder al calendario -->
+				        <a th:href="@{/calendario-permisos}" th:if="${!usuario.hasPermisoPendiente()}">
+				            <button class="button">Acceder calendario, pedir permiso</button>
+				        </a>
+				        <button class="button" th:if="${usuario.hasPermisoPendiente()}" disabled>Acceder calendario, pedir permiso</button>
 				    </div>
 				</div>
 		    </div>
 		    
 		    <div class="card text-center">
-				<div class="card-header">Historial</div>
+				<div class="card-header">Historial de permisos</div>
 				<div class="card-body">
-					<h2>Detalles de los Permisos</h2>
-					<hr>
-			            <div th:each="permiso : ${permisos}">
-			                <p th:text="'Fecha de inicio: ' + ${permiso.fechaInicio}"></p>
-			                <p th:text="'Fecha de fin: ' + ${permiso.fechaFin}"></p>
-			                <p th:text="'Tipo de permiso: ' + ${permiso.tipoPermiso}"></p>
-			                <p th:text="'ESTADO: ' + ${permiso.estado}"></p>
-			                <hr>
-			            </div>
-			        
-			       <!-- Mostrar el mensaje si los permisos han sido denegados -->
-			        <div th:if="${usuario.isPermisosDenegados()}">
-			            <p>Solicitud denegada</p>
+			        <div class="detallesPermisos" th:each="permiso : ${permisos}">
+				        <p>
+				        	<strong>Fecha de inicio: </strong>
+				        	<span th:text="${permiso.fechaInicio}"></span>
+				        </p>
+
+				        <p>
+				        	<strong>Fecha de fin: </strong>
+				        	<span th:text="${permiso.fechaFin}"></span>
+				        </p>
+
+				        <p>
+				        	<strong>Tipo de permiso: </strong>
+				        	<span th:text="${permiso.tipoPermiso}"></span>
+				        </p>
+				        
+				        <hr>
+				        
+				        <p>
+				        	<strong>ESTADO: </strong>
+				        	<span th:text="${permiso.estado}"></span>
+				        </p>
 			        </div>
 				</div>
 			</div>

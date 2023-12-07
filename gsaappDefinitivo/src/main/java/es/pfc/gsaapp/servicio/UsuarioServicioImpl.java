@@ -112,15 +112,18 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	    // Aquí puedes realizar acciones adicionales antes de aceptar los permisos, si es necesario
 	    // ...
 
-	    // Acepta los permisos (actualiza el estado)
+	    // Acepta los permisos (actualiza el estado solo si está pendiente)
 	    Set<Permiso> permisos = usuario.getPermisos();
 	    for (Permiso permiso : permisos) {
-	        permiso.setEstado(EstadoPermiso.ACEPTADO);
+	        if (permiso.getEstado() == EstadoPermiso.PENDIENTE) {
+	            permiso.setEstado(EstadoPermiso.ACEPTADO);
+	        }
 	    }
 
 	    // Guarda el usuario para aplicar los cambios
 	    usuarioRepositorio.save(usuario);
 	}
+
 
 	@Override
 	public boolean denegarPermisos(Long usuarioId) {
@@ -143,5 +146,4 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	    return true;
 	}
-
 }

@@ -52,6 +52,12 @@ body {
 	margin-top: 1rem;
 	margin-left: 4.2rem;
 }
+
+.detallesPermisos {
+	display: grid; /* establece que el elemento sea una cuadrícula */
+	grid-template-columns: 20% 20% 20% 20%;
+  	grid-template-rows: auto;
+}
       
 button {
 	margin-top: 1rem;
@@ -67,6 +73,12 @@ button {
 
 button:hover {
 	background-color: #e4c07c;
+}
+
+/* Estilo para botones deshabilitados */
+button:disabled {
+    opacity: 0.5; /* Puedes ajustar la opacidad según tus preferencias */
+    cursor: not-allowed; /* Cambia el cursor cuando el botón está deshabilitado */
 }
 
 @media only screen and (max-width: 810px) {
