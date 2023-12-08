@@ -121,6 +121,10 @@ footer {
         width: 90%;
         margin: 0 auto;
     }
+    
+    footer {
+        height: 20%;
+    }
 	
 	.footer-icons img {
 	    width: 2rem;
@@ -131,6 +135,6 @@ footer {
 	}
 	
 	.infoApp {
-   		font-size: 1rem;
+   		display: none;
 	}
 }

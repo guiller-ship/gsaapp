@@ -71,28 +71,25 @@
 		    <div class="card text-center">
 				<div class="card-header">Historial de permisos</div>
 				<div class="card-body">
-			        <div class="detallesPermisos" th:each="permiso : ${permisos}">
-				        <p>
-				        	<strong>Fecha de inicio: </strong>
-				        	<span th:text="${permiso.fechaInicio}"></span>
-				        </p>
-
-				        <p>
-				        	<strong>Fecha de fin: </strong>
-				        	<span th:text="${permiso.fechaFin}"></span>
-				        </p>
-
-				        <p>
-				        	<strong>Tipo de permiso: </strong>
-				        	<span th:text="${permiso.tipoPermiso}"></span>
-				        </p>
-				        
-				        <hr>
-				        
-				        <p>
-				        	<strong>ESTADO: </strong>
-				        	<span th:text="${permiso.estado}"></span>
-				        </p>
+			        <div class="container-fluid">
+			        	<ul class="detallesPermisos" th:each="permiso : ${permisos}">
+			        		<li>
+			        			<strong>Fecha de inicio: </strong>
+				        		<span th:text="${permiso.fechaInicio}"></span>
+				        	</li>
+			        		<li>
+			        			<strong>Fecha de fin: </strong>
+				        		<span th:text="${permiso.fechaFin}"></span>
+				        	</li>
+			        		<li>
+			        			<strong>Tipo de permiso: </strong>
+				        		<span th:text="${permiso.tipoPermiso}"></span>
+				        	</li>
+			        		<li>
+			        			<strong>ESTADO: </strong>
+				        		<span th:text="${permiso.estado}"></span>
+				        	</li>
+			        	</ul>
 			        </div>
 				</div>
 			</div>

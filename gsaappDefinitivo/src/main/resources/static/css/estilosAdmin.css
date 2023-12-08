@@ -89,7 +89,7 @@ body {
  	margin: 0.2rem;
 }
 
-@media only screen and (max-width: 810px) {
+@media only screen and (max-width: 1120px) {
 	.datosUsuarios {
   		display: grid;
 	  	grid-template-columns: auto;
@@ -107,9 +107,8 @@ body {
 		margin-left: 16rem;
 	}
 	
-	table { 
-  		width: 100%; 
-  		border-collapse: collapse; 
+	.thCargo, .tdCargo {
+		display: none;
 	}
 }
 

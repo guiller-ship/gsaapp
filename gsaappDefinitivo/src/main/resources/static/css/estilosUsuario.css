@@ -54,9 +54,15 @@ body {
 }
 
 .detallesPermisos {
-	display: grid; /* establece que el elemento sea una cuadrícula */
-	grid-template-columns: 20% 20% 20% 20%;
-  	grid-template-rows: auto;
+	display: flex;
+	list-style-type: none;
+	width: 100%;
+	border-bottom: solid;
+	font-size: 100%;
+}
+
+.detallesPermisos li {
+	margin: 0.2rem;
 }
       
 button {
@@ -98,9 +104,16 @@ button:disabled {
 	}
 	
 	.card-img-top {
-		width: 50%;
 		border-radius: 5rem;
 		margin-top: 1rem;
 		margin-left: 0;
+	}
+	
+	.detallesPermisos {
+		display: flex;
+		list-style-type: none;
+		flex-direction: column;
+		width: 100%;
+		font-size: 100%;
 	}
 }
