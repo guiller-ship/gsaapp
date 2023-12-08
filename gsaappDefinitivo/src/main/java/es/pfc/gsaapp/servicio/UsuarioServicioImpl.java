@@ -53,11 +53,6 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		return usuarioRepositorio.save(usuario);
 	}
 	
-//	@Override
-//	public List<Usuario> listarUsuarios() {
-//		return usuarioRepositorio.findAll();
-//	}
-	
 	@Override
 	public Page<Usuario> listarUsuariosPorRolUser(Pageable pageable) {
 		// TODO Auto-generated method stub
@@ -109,9 +104,6 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	    Usuario usuario = usuarioRepositorio.findById(usuarioId)
 	            .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado con id: " + usuarioId));
 
-	    // Aquí puedes realizar acciones adicionales antes de aceptar los permisos, si es necesario
-	    // ...
-
 	    // Acepta los permisos (actualiza el estado solo si está pendiente)
 	    Set<Permiso> permisos = usuario.getPermisos();
 	    for (Permiso permiso : permisos) {
@@ -144,6 +136,4 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	    // Guarda el usuario para aplicar los cambios
 	    usuarioRepositorio.save(usuario);
 	}
-
-
 }

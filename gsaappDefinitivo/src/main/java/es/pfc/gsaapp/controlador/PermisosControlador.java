@@ -53,13 +53,6 @@ public class PermisosControlador {
         // Lógica para guardar el permiso en la base de datos
         permisoServicioImpl.guardarPermiso(permiso);
 
-//        // Después de autenticar al usuario
-//        Usuario usuario = usuarioRepositorio.findByEmail(email);
-//        // Otros procesos de tu aplicación
-//        // ...
-//        // Crear y guardar un permiso para el usuario
-//        permisoServicio.crearPermisoParaUsuario(usuario);
-
 
         // Redirige a la página de éxito o a donde sea necesario
         return "redirect:/inicio"; // Ajusta según tu aplicación
