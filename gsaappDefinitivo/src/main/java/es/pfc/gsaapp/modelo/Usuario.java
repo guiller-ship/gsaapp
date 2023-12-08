@@ -63,8 +63,6 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Set<Permiso> permisos;
 
-	private boolean permisosDenegados;
-
 	public Long getId() {
 		return id;
 	}
